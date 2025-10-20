@@ -5,7 +5,6 @@ public abstract class Interaccion
     public string id { get; set; }
     public string fechaHora { get; set; }
     public string tema { get; set; }
-    public string direccion { get; set; }
     public string estado { get; set; }
     public string clienteId { get; set; }
     public string vendedorId { get; set; }
