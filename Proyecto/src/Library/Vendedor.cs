@@ -49,4 +49,17 @@ public class Vendedor : IUsuario
             fechaNacimiento: fechaNacimiento
         );
     }
+    
+    public void EliminarCliente(string idCliente)
+    {
+        // Buscar el cliente por ID
+        var cliente = Clientes.FirstOrDefault(c => c.id == idCliente);
+    
+        if (cliente != null)
+        {
+            // Remover de la lista
+            Clientes.Remove(cliente);
+            Console.WriteLine($"Cliente con ID {idCliente} eliminado correctamente.");
+        }
+    }
 }
