@@ -3,7 +3,7 @@
 public abstract class Interaccion
 {
     public string id { get; set; }
-    public string fechaHora { get; set; }
+    public string fecha { get; set; }
     public string tema { get; set; }
     public string estado { get; set; }
     public string clienteId { get; set; }
@@ -13,7 +13,7 @@ public abstract class Interaccion
     public Interaccion(string id, string fechaHora, string tema, string estado, string clienteId, string vendedorId, List<Comentario> comentarios)
     {
         this.id = id;
-        this.fechaHora = fechaHora;
+        this.fecha = fechaH;
         this.tema = tema;
        // this.direccion = direccion;
         this.estado = estado;
