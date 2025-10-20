@@ -62,4 +62,13 @@ public class Vendedor : IUsuario
             Console.WriteLine($"Cliente con ID {idCliente} eliminado correctamente.");
         }
     }
+
+    public void ListarClientes()
+    {
+        foreach (var cl in Clientes )
+        {
+            Console.WriteLine($"ID: {cl.id}, Nombre: {cl.nombre} {cl.apellido}, Tel: {cl.telefono}, Email: {cl.email}");
+
+        }
+    }
 }
