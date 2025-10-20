@@ -11,6 +11,8 @@ public class Cliente
    public string fechaNacimiento { get; set; }
    public bool activo { get; set; }
    public string creadoEn { get; set; }
+   
+   
 
    public Cliente(string unId, string unNombre, string unApellido, string unTelefono, string unEmail, string gen,
       string fechaNac, string creado)
@@ -25,4 +27,22 @@ public class Cliente
       this.activo = true;
       this.creadoEn = creado;
    }
+   
+   public void Actualizar(
+      string nombre = null,
+      string apellido = null,
+      string telefono = null,
+      string email = null,
+      string genero = null,
+      string fechaNacimiento = null
+   )
+   {
+      if(nombre != null) this.nombre = nombre;
+      if(apellido != null) this.apellido = apellido;
+      if(telefono != null) this.telefono = telefono;
+      if(email != null) this.email = email;
+      if(genero != null) this.genero = genero;
+      if(fechaNacimiento != null) this.fechaNacimiento = fechaNacimiento;
+   }
+
 }
