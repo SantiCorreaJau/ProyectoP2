@@ -11,6 +11,8 @@ public class Cliente
    public string fechaNacimiento { get; set; }
    public bool activo { get; set; }
    public string creadoEn { get; set; }
+   
+   
 
    public Cliente(string unId, string unNombre, string unApellido, string unTelefono, string unEmail, string gen,
       string fechaNac, string creado)
