@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Proyecto;
 
 public interface IUsuario
 {
