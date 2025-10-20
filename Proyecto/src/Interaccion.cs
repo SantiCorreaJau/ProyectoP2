@@ -23,7 +23,7 @@ public abstract class Interaccion
         this.comentarios = comentarios;
     }
 
-    public abstract void Registrar(string idCliente)
+    public virtual void Registrar(string idCliente)
     {
     }
 
@@ -34,7 +34,12 @@ public abstract class Interaccion
 
     public bool EsPendiente()
     {
-        return this.estado;
+        if (this.estado == "pendiente")
+        {
+            return true;
+        }
+        else return false;
+
     }
 
     public bool EsReciente(string fechaLimite)

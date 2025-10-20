@@ -1,7 +1,5 @@
 ﻿namespace Proyecto;
 
-public class Comentario
-{
     public class Comentario
     {
         public string id { get; set; }
@@ -37,4 +35,3 @@ public class Comentario
         }
     }
 
-}
