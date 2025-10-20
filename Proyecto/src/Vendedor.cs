@@ -17,4 +17,32 @@ public class Vendedor : IUsuario
         telefono = unTelefono;
         email = unMail;
     }
+
+    public void CrearCliente(string id,string nombre, string apellido, string telefono, string mail,string genero,
+        string fecha,string creado)
+    {
+        Cliente cl = new Cliente(id, nombre, apellido, telefono, mail, genero, fecha, creado);
+    }
+    
+    // Modificar cliente existente (actualización parcial)
+    public void ModificarCliente(
+        Cliente cliente,
+        string nombre = null,
+        string apellido = null,
+        string telefono = null,
+        string email = null,
+        string genero = null,
+        string fechaNacimiento = null
+    )
+    {
+        // Delegamos al propio cliente para que actualice sus datos
+        cliente.Actualizar(
+            nombre: nombre,
+            apellido: apellido,
+            telefono: telefono,
+            email: email,
+            genero: genero,
+            fechaNacimiento: fechaNacimiento
+        );
+    }
 }
