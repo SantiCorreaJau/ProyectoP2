@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Proyecto;
 
 public class RepositorioInteracciones
 {
@@ -8,7 +8,12 @@ public class RepositorioInteracciones
     {
         RepoInteracciones = new List<Interaccion>();
     }
+
+    public void Agregar(Interaccion inter) //se creo metodo para poder agregar a la lisa de Interacciones
+    {
+        RepoInteracciones.Add(inter);
+    }
     
-    public List<Interacciones> Filtrar
+   // public List<Interaccion> Filtrar
     
 }

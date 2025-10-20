@@ -2,17 +2,25 @@
 
 public class Reunion : Interaccion
 {
-    public string lugar { get; set; }
+    public string Lugar { get; set; }
 
-    public Reunion(string id, string fechaHora, string tema, string direccion, string estado, string clienteId, string vendedorId, List<Comentario> comentarios, string lugar)
-        : base(id, fechaHora, tema, direccion, estado, clienteId, vendedorId, comentarios)
+    public Reunion(
+        string id,
+        string fechaHora,
+        string tema,
+        string estado,
+        string clienteId,
+        string vendedorId,
+        List<Comentario> comentarios,
+        string lugar)
+        : base(id, fechaHora, tema, estado, clienteId, vendedorId, comentarios)
     {
-        this.lugar = lugar;
+        Lugar = lugar;
     }
 
-    public override void Registrar(string idCliente)
+    public override void Registrar(RepositorioInteracciones repositorio)
     {
-        clienteId = idCliente;
-        estado = "reunión registrada";
+        
+        repositorio.Agregar(this);
     }
 }

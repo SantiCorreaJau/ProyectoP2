@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Proyecto;
 
 public abstract class Interaccion
 {
@@ -10,21 +10,19 @@ public abstract class Interaccion
     public string vendedorId { get; set; }
     public List<Comentario> comentarios { get; set; }
 
-    public Interaccion(string id, string fechaHora, string tema, string direccion, string estado, string clienteId, string vendedorId, List<Comentario> comentarios)
+    public Interaccion(string id, string fechaHora, string tema, string estado, string clienteId, string vendedorId, List<Comentario> comentarios)
     {
         this.id = id;
         this.fechaHora = fechaHora;
         this.tema = tema;
-        this.direccion = direccion;
+       // this.direccion = direccion;
         this.estado = estado;
         this.clienteId = clienteId;
         this.vendedorId = vendedorId;
         this.comentarios = comentarios;
     }
 
-    public virtual void Registrar(string idCliente)
-    {
-    }
+    public abstract void Registrar(RepositorioInteracciones repositorio);
 
     public void CambiarEstado(string nuevoEstado)
     {

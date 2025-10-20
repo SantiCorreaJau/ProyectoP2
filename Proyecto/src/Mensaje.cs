@@ -2,19 +2,25 @@
 
 public class Mensaje : Interaccion
 {
-    public string canal { get; set; }
-    public string contenido { get; set; }
+    public string Direccion { get; set; } 
 
-    public Mensaje(string id, string fechaHora, string tema, string direccion, string estado, string clienteId, string vendedorId, List<Comentario> comentarios, string canal, string contenido)
-        : base(id, fechaHora, tema, direccion, estado, clienteId, vendedorId, comentarios)
+    public Mensaje(
+        string id,
+        string fechaHora,
+        string tema,
+        string estado,
+        string clienteId,
+        string vendedorId,
+        List<Comentario> comentarios,
+        string direccion)
+        : base(id, fechaHora, tema, estado, clienteId, vendedorId, comentarios)
     {
-        this.canal = canal;
-        this.contenido = contenido;
+        Direccion = direccion;
     }
 
-    public override void Registrar(string idCliente)
+    public override void Registrar(RepositorioInteracciones repositorio)
     {
-        clienteId = idCliente;
-        estado = "mensaje registrado";
+        
+        repositorio.Agregar(this);
     }
 }

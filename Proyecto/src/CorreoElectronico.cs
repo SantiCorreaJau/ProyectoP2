@@ -1,10 +1,11 @@
 namespace Proyecto;
 
-public class Llamada : Interaccion
+public class CorreoElectronico : Interaccion
 {
-    public int DuracionMin { get; set; }
+    public string Direccion { get; set; } // "Enviado" o "Recibido"
+    public string Asunto { get; set; }
 
-    public Llamada(
+    public CorreoElectronico(
         string id,
         string fechaHora,
         string tema,
@@ -12,14 +13,17 @@ public class Llamada : Interaccion
         string clienteId,
         string vendedorId,
         List<Comentario> comentarios,
-        int duracionMin)
+        string direccion,
+        string asunto)
         : base(id, fechaHora, tema, estado, clienteId, vendedorId, comentarios)
     {
-        DuracionMin = duracionMin;
+        Direccion = direccion;
+        Asunto = asunto;
     }
 
     public override void Registrar(RepositorioInteracciones repositorio)
     {
+        
         repositorio.Agregar(this);
     }
 }
