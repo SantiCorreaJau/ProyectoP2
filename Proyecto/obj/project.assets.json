@@ -8,11 +8,16 @@
     "net8.0": []
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\feder\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\joaac\\.nuget\\packages\\": {}
+>>>>>>> 7438b00775524af8cc65788d77b396c40813b25a
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
       "projectName": "Proyecto",
       "projectPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
@@ -21,6 +26,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\feder\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+      "projectName": "Proyecto",
+      "projectPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+      "packagesPath": "C:\\Users\\joaac\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\joaac\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 7438b00775524af8cc65788d77b396c40813b25a
       ],
       "originalTargetFrameworks": [
         "net8.0"
