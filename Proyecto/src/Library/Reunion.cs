@@ -2,6 +2,7 @@
 
 public class Reunion : Interaccion
 {
+    //es como una interaccion cualquiera, nada mas que tiene un lugar como string
     public string Lugar { get; set; }
 
     public Reunion(
