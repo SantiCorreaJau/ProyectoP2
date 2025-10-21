@@ -73,10 +73,6 @@ namespace Proyecto
 
             return clientesSinContacto;
         }
-
-        // --------------------------------------------------------------------
-        // Interacciones no leídas/pendientes
-        // --------------------------------------------------------------------
         public List<Interaccion> verNoLeidos(List<Interaccion> listaInteracciones)
         {
             var resultado = new List<Interaccion>();
