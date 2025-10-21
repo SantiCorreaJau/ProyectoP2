@@ -3,7 +3,7 @@ namespace Proyecto;
 public class CorreoElectronico : Interaccion
 {
     public string Direccion { get; set; } // "Enviado" o "Recibido"
-    public string Asunto { get; set; }
+    public string Asunto { get; set; }  
 
     public CorreoElectronico(
         string id,

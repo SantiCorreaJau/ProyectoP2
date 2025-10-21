@@ -9,7 +9,7 @@ public class Etiqueta
     public Etiqueta(string unId, string unNombre, string unaDescripcion)
     {
         this.id = unId;
-        this.Nombre = unNombre;
+        this.nombre = unNombre;
         this.descripcion = unaDescripcion;
     }
 }

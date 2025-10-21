@@ -2,11 +2,11 @@
 
     public class Comentario
     {
-        public string id { get; set; }
+        public string id { get; set; }  // ID del comentario en especifico
         public string texto { get; set; }
         public string creadoEn { get; set; }
-        public string autorId { get; set; }
-        public string interaccionId { get; set; }
+        public string autorId { get; set; } // Todas las interacciones llevan el ID de quien las crea (vendedor)
+        public string interaccionId { get; set; }   // Sirve para saber a qué interacción se asocia el comentario.
         public bool visible { get; set; }
 
         public Comentario(string id, string texto, string creadoEn, string autorId, string interaccionId, bool visible)
@@ -31,7 +31,7 @@
 
         public void Mostrar()
         {
-            System.Console.WriteLine($"[{creadoEn}] {texto} (Autor: {autorId})");
+            Console.WriteLine($"[{creadoEn}] {texto} (Autor: {autorId})");
         }
     }
 

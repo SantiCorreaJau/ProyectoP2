@@ -11,7 +11,7 @@
       public string fechaNacimiento { get; set; }
       public bool activo { get; set; }
       public string creadoEn { get; set; }
-      public List<string> etiquetasIds { get; set; }
+      public List<string> etiquetasIds { get; set; }  // Es una lista de strings que guarda los IDs de las etiquetas que se le asignan al cliente
 
 
       public Cliente(string unId, string unNombre, string unApellido, string unTelefono, string unEmail, string gen,
@@ -28,7 +28,7 @@
          this.creadoEn = creado;
       }
       
-      public void Actualizar( 
+      public void Actualizar(  // Con este metodo podemos modificar los datos de un cliente sin necesidad de crear otro objeto
          string nombre = null,
          string apellido = null,
          string telefono = null,
