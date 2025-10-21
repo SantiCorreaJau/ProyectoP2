@@ -42,33 +42,33 @@ public abstract class Interaccion       // Creamos una clase abstracta porque nu
 
     public bool EsReciente(string fechaInteraccion)
     {
-        // Fecha de la interacción (dd-MM-yy)
+        // Fecha de la interacción (dd-mm-yy) la paso a enteros
         int dia = (fechaInteraccion[0] - '0') * 10 + (fechaInteraccion[1] - '0');
         int mes = (fechaInteraccion[3] - '0') * 10 + (fechaInteraccion[4] - '0');
         int año = (fechaInteraccion[6] - '0') * 10 + (fechaInteraccion[7] - '0');
 
-        // Fecha actual (dd-MM-yy)
+        // Fecha actual (dd-mm-yy) la paso a enteros
         string hoyStr = DateTime.Now.ToString("dd-MM-yy");
         int diaHoy = (hoyStr[0] - '0') * 10 + (hoyStr[1] - '0');
         int mesHoy = (hoyStr[3] - '0') * 10 + (hoyStr[4] - '0');
         int añoHoy = (hoyStr[6] - '0') * 10 + (hoyStr[7] - '0');
 
-        // Mismo año y mes → resta directa de días
+        // Mismo año y mes, resta directa de días
         if (año == añoHoy && mes == mesHoy)
         {
             int diferencia = diaHoy - dia;
             return diferencia <= 10 && diferencia >= 0;
         }
 
-        // Mismo año, mes anterior → calcular diferencia "a mano"
+        // Mismo año, mes anterior calculo la diferencia tomando que el mes anterior tiene 30 dias
         if (año == añoHoy && mesHoy - mes == 1)
         {
-            int diasDelMesAnterior = 30; // asumiendo promedio, sin usar métodos
+            int diasDelMesAnterior = 30;
             int diferencia = (diaHoy + (diasDelMesAnterior - dia));
             return diferencia <= 10 && diferencia >= 0;
         }
 
-        // Distinto año o más de un mes → no es reciente
+        // Distinto año o más de un mes, no es reciente
         return false;
     }
 
