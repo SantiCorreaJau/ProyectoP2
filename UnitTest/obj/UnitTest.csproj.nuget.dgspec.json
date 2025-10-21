@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\UnitTest\\UnitTest.csproj": {}
+    "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\UnitTest\\UnitTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
+    "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
         "projectName": "Proyecto",
-        "projectPath": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\Proyecto.csproj",
-        "packagesPath": "C:\\Users\\Juany\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\obj\\",
+        "projectPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+        "packagesPath": "C:\\Users\\joaac\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Juany\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\joaac\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -57,17 +57,17 @@
         }
       }
     },
-    "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\UnitTest\\UnitTest.csproj": {
+    "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\UnitTest\\UnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\UnitTest\\UnitTest.csproj",
+        "projectUniqueName": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\UnitTest\\UnitTest.csproj",
         "projectName": "UnitTest",
-        "projectPath": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\UnitTest\\UnitTest.csproj",
-        "packagesPath": "C:\\Users\\Juany\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\UnitTest\\obj\\",
+        "projectPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\UnitTest\\UnitTest.csproj",
+        "packagesPath": "C:\\Users\\joaac\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\UnitTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Juany\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\joaac\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -79,8 +79,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
-                "projectPath": "C:\\Users\\Juany\\Desktop\\UCU\\ProyectoP2\\Proyecto\\Proyecto.csproj"
+              "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
+                "projectPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj"
               }
             }
           }

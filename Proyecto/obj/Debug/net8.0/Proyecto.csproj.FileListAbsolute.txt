@@ -1,0 +1,15 @@
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\bin\Debug\net8.0\Proyecto.exe
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\bin\Debug\net8.0\Proyecto.deps.json
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\bin\Debug\net8.0\Proyecto.runtimeconfig.json
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\bin\Debug\net8.0\Proyecto.dll
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\bin\Debug\net8.0\Proyecto.pdb
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfoInputs.cache
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.AssemblyInfo.cs
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.csproj.CoreCompileInputs.cache
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.sourcelink.json
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.dll
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\refint\Proyecto.dll
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.pdb
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\Proyecto.genruntimeconfig.cache
+C:\Users\joaac\OneDrive\Escritorio\ucu\p2\proyectoP2\ProyectoP2\Proyecto\obj\Debug\net8.0\ref\Proyecto.dll

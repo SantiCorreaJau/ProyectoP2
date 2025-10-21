@@ -20,14 +20,10 @@ public class RepositorioClientes
         string creadoEn,
         string vendedorId)
     {
-        // arma el objeto cliente con los datos que llegan
         Cliente nuevo = new Cliente(id, nombre, apellido, telefono, email, genero, fechaNacimiento, creadoEn);
-
-        
-        nuevo.id = vendedorId;
-
-        RepoClientes.Add(nuevo);                      // lo metemos al repo
+        RepoClientes.Add(nuevo);
     }
+
 
     public void modificarCliente(
         string idCliente,
