@@ -1,4 +1,4 @@
-﻿namespace Proyecto;
+﻿
 
     public class Comentario
     {

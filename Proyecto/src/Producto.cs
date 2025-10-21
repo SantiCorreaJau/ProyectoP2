@@ -1,4 +1,4 @@
-﻿namespace Proyecto;
+﻿
 public class Producto
 {
     public string Id { get; set; }
