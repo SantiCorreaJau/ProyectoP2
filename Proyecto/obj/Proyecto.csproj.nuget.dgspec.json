@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {}
+    "C:\\Users\\feder\\Desktop\\Programacion 2\\PRoyecto2sabia\\Proyecto\\Proyecto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
+    "C:\\Users\\feder\\Desktop\\Programacion 2\\PRoyecto2sabia\\Proyecto\\Proyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\feder\\Desktop\\Programacion 2\\PRoyecto2sabia\\Proyecto\\Proyecto.csproj",
         "projectName": "Proyecto",
-        "projectPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
-        "packagesPath": "C:\\Users\\joaac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joaac\\OneDrive\\Escritorio\\ucu\\p2\\proyectoP2\\ProyectoP2\\Proyecto\\obj\\",
+        "projectPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\PRoyecto2sabia\\Proyecto\\Proyecto.csproj",
+        "packagesPath": "C:\\Users\\feder\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\PRoyecto2sabia\\Proyecto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joaac\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\feder\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
