@@ -31,19 +31,17 @@ public class RepositorioInteracciones
     }
 
     public List<Interaccion> FiltrarCliente(string clienteId, List<Interaccion> lista)  // Filtro por todas las interacciones que pertenecen a un cliente en especifico por su ID
-{
-    List<Interaccion> resultado = new List<Interaccion>();  // Declaro la lista que voy a devolver
-
-    foreach (Interaccion i in lista)    // Recorro la listay si los ids coinciden, los agrego a la lista anterior
     {
-        if (i.clienteId == clienteId)
-        {
-            resultado.Add(i);
-        }
-    }
+        List<Interaccion> resultado = new List<Interaccion>();  // Declaro la lista que voy a devolver
 
-    return resultado;
-}
+        foreach (Interaccion i in lista){    // Recorro la listay si los ids coinciden, los agrego a la lista anterior
+            if (i.clienteId == clienteId)
+            {
+            resultado.Add(i);
+            }
+        }
+        return resultado;
+    }
 
 public List<Interaccion> FiltrarVendedor(string vendedorId, List<Interaccion> lista)    // Filtro por vendedor
 {

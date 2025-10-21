@@ -23,221 +23,382 @@ namespace Proyecto
             email = unMail;
             activo = true;
         }
-
-        // --------------------------------------------------------------------
-        // Historial de interacciones por cliente
-        // --------------------------------------------------------------------
-        public List<Interaccion> verHistorialInteracciones(string idCliente, RepositorioInteracciones repo)
+        
+        public List<Interaccion> verHistorialInteracciones(string idCliente, RepositorioInteracciones repo) // Devuelve una lista de todas las interacciones
+                                            // de un mismo cliente
         {
-            var resultado = new List<Interaccion>();
-            if (repo?.RepoInteracciones == null) return resultado;
+            var resultado = new List<Interaccion>();    // Creo la lista que voy a devolver
+            if (repo?.RepoInteracciones == null) return resultado;  // Si el repositorio esta vacio devuelvo la lista vacia
 
-            foreach (var i in repo.RepoInteracciones)
+            foreach (var i in repo.RepoInteracciones)   // recorro el repo
             {
-                if (i != null && i.clienteId == idCliente)
+                if (i != null && i.clienteId == idCliente)  //Si la interaccion NO esta vacia y coincide el id del cliente lo agrego a la lista
                     resultado.Add(i);
             }
             return resultado;
         }
+        
+        public List<string> verClientesSinContactoDesde(string fecha, RepositorioInteracciones repo) // Devuelve una lista de clientes los cuales
+        // no tengo contacto desde una fecha formato dd-mm-aa
+{
+    List<string> clientesSinContacto = new List<string>();      // Creo la lista que despues voy a devolver
+    if (repo == null || repo.RepoInteracciones == null) return clientesSinContacto;     // Me fijo si el repo no esta vacio
 
-        // --------------------------------------------------------------------
-        // Clientes sin contacto desde "dd-MM-yy" (usa DateTime.TryParseExact)
-        // --------------------------------------------------------------------
-        public List<string> verClientesSinContactoDesde(string fecha, RepositorioInteracciones repo)
+    // Paso la fecha del formato dd-mm-aa a variables con enteros
+    int dLimite = (fecha[0] - '0') * 10 + (fecha[1] - '0');
+    int mLimite = (fecha[3] - '0') * 10 + (fecha[4] - '0');
+    int aLimite = (fecha[6] - '0') * 10 + (fecha[7] - '0');
+
+    // Creo un diccionario donde voy a almacenar (cliente, ultima interaccion)
+    Dictionary<string, int[]> ultimoPorCliente = new Dictionary<string, int[]>();
+
+    foreach (Interaccion i in repo.RepoInteracciones) // Recorro todas las interacciones del repositorio
+    {
+        string f = i.fecha;                           // Guardo la fecha en una variable corta para leer más fácil
+        int d = (f[0] - '0') * 10 + (f[1] - '0');     // Día: toma caracteres 0 y 1 y los convierte a número
+        int m = (f[3] - '0') * 10 + (f[4] - '0');     // Mes: toma caracteres 3 y 4 y los convierte a número
+        int a = (f[6] - '0') * 10 + (f[7] - '0');     // Año (2 dígitos): toma caracteres 6 y 7 y los convierte a número
+
+        if (!ultimoPorCliente.ContainsKey(i.clienteId))       // Si aún no guardamos una fecha para este cliente
         {
-            var clientesSinContacto = new List<string>();
-            if (repo?.RepoInteracciones == null) return clientesSinContacto;
-
-            if (!DateTime.TryParseExact(fecha, "dd-MM-yy", CultureInfo.InvariantCulture,
-                                        DateTimeStyles.None, out var limite))
-                return clientesSinContacto;
-
-            var ultimoPorCliente = new Dictionary<string, DateTime>();
-            const string formato = "dd-MM-yy";
-
-            foreach (var i in repo.RepoInteracciones)
-            {
-                if (i == null || string.IsNullOrWhiteSpace(i.clienteId) || string.IsNullOrWhiteSpace(i.fecha))
-                    continue;
-
-                if (!DateTime.TryParseExact(i.fecha, formato, CultureInfo.InvariantCulture,
-                                            DateTimeStyles.None, out var f))
-                    continue;
-
-                if (!ultimoPorCliente.TryGetValue(i.clienteId, out var existente) || f > existente)
-                    ultimoPorCliente[i.clienteId] = f;
-            }
-
-            foreach (var kv in ultimoPorCliente)
-                if (kv.Value < limite) clientesSinContacto.Add(kv.Key);
-
-            return clientesSinContacto;
+            ultimoPorCliente[i.clienteId] = new int[] { d, m, a }; // Guardamos esta como “última fecha” (día, mes, año)
         }
+        else
+        {
+            int[] existente = ultimoPorCliente[i.clienteId];  // Recuperamos la última fecha ya guardada para el cliente
+            // Comparación manual para quedarnos con la fecha más reciente:
+            // 1) Si el año nuevo es mayor
+            // 2) O si el año es igual pero el mes nuevo es mayor
+            // 3) O si año y mes son iguales pero el día nuevo es mayor
+            if (a > existente[2] ||
+                (a == existente[2] && m > existente[1]) ||
+                (a == existente[2] && m == existente[1] && d > existente[0]))
+            {
+                // Si la fecha actual de la interacción es más reciente, la reemplazamos
+                ultimoPorCliente[i.clienteId] = new int[] { d, m, a };
+            }
+        }
+    }
+
+
+
+    // Verifica quiénes no tienen contacto desde la fecha límite
+    foreach (var par in ultimoPorCliente)
+    {
+        int d = par.Value[0];
+        int m = par.Value[1];
+        int a = par.Value[2];
+
+        // Si la última interacción fue antes de la fecha límite → agregar a la lista
+        bool antes = false;
+
+        if (a < aLimite)
+            antes = true;
+        else if (a == aLimite && m < mLimite)
+            antes = true;
+        else if (a == aLimite && m == mLimite && d < dLimite)
+            antes = true;
+
+        if (antes)
+            clientesSinContacto.Add(par.Key);
+    }
+
+    return clientesSinContacto;
+}
+
+        
+        
         public List<Interaccion> verNoLeidos(List<Interaccion> listaInteracciones)
         {
-            var resultado = new List<Interaccion>();
-            if (listaInteracciones == null) return resultado;
+            // Creo una lista vacía donde voy a guardar las interacciones que están sin leer o pendientes
+            List<Interaccion> resultado = new List<Interaccion>();
 
-            foreach (var i in listaInteracciones)
+            // Si la lista que me pasan es nula, devuelvo la lista vacía directamente
+            if (listaInteracciones == null)
             {
-                if (i == null || string.IsNullOrWhiteSpace(i.estado)) continue;
-                var s = i.estado.Trim();
-                if (s.Equals("no leído", StringComparison.OrdinalIgnoreCase) ||
-                    s.Equals("no leido", StringComparison.OrdinalIgnoreCase) ||
-                    s.Equals("pendiente", StringComparison.OrdinalIgnoreCase))
-                {
-                    resultado.Add(i);
-                }
-            }
-            return resultado;
-        }
-
-        // --------------------------------------------------------------------
-        // Mostrar interacciones en rango (incluye extremos)
-        // --------------------------------------------------------------------
-        public void verTotalRango(string fechaInicial, string fechaFinal, RepositorioInteracciones repo)
-        {
-            if (repo?.RepoInteracciones == null)
-            {
-                Console.WriteLine($"Interacciones entre {fechaInicial} y {fechaFinal}: 0 (repositorio vacío)");
-                return;
+                return resultado;
             }
 
-            if (!DateTime.TryParseExact(fechaInicial, "dd-MM-yy", CultureInfo.InvariantCulture,
-                                        DateTimeStyles.None, out var desde))
+            // Recorro todas las interacciones de la lista
+            for (int x = 0; x < listaInteracciones.Count; x++)
             {
-                Console.WriteLine("Fecha inicial inválida: " + fechaInicial);
-                return;
-            }
-            if (!DateTime.TryParseExact(fechaFinal, "dd-MM-yy", CultureInfo.InvariantCulture,
-                                        DateTimeStyles.None, out var hasta))
-            {
-                Console.WriteLine("Fecha final inválida: " + fechaFinal);
-                return;
-            }
+                Interaccion i = listaInteracciones[x];
 
-            Console.WriteLine($"Interacciones entre {fechaInicial} y {fechaFinal}:");
-
-            foreach (var i in repo.RepoInteracciones)
-            {
-                if (i == null || string.IsNullOrWhiteSpace(i.fecha)) continue;
-                if (!DateTime.TryParseExact(i.fecha, "dd-MM-yy", CultureInfo.InvariantCulture,
-                                            DateTimeStyles.None, out var f))
-                    continue;
-
-                if (f < desde || f > hasta) continue;
-
-                Console.WriteLine("--------------------------------------------------");
-                Console.WriteLine("ID: " + i.id);
-                Console.WriteLine("Fecha: " + i.fecha);
-                Console.WriteLine("Tipo: " + i.GetType().Name);
-                Console.WriteLine("Cliente: " + i.clienteId);
-                Console.WriteLine("Vendedor: " + i.vendedorId);
-                Console.WriteLine("Tema: " + i.tema);
-                Console.WriteLine("Estado: " + i.estado);
-
-                // Propiedades que existen según tus clases
-                if (i is Llamada llamadax)
+                // Si la interacción existe y tiene estado
+                if (i != null && i.estado != null)
                 {
-                    Console.WriteLine("Duración (min): " + llamadax.DuracionMin);
-                }
-                else if (i is Reunion reunionx)
-                {
-                    Console.WriteLine("Lugar: " + reunionx.Lugar);
-                }
-                else if (i is Mensaje mensajex)
-                {
-                    Console.WriteLine("Canal: " + mensajex.Canal);
-                    Console.WriteLine("Contenido: " + mensajex.Contenido);
-                }
-                else if (i is CorreoElectronico correox)
-                {
-                    Console.WriteLine("Dirección: " + correox.Direccion); // Enviado/Recibido
-                    Console.WriteLine("Asunto: " + correox.Asunto);
-                }
-            }
-        }
-
-        // --------------------------------------------------------------------
-        // Resumen rápido (últimos 10 días / próximos 10 días)
-        // --------------------------------------------------------------------
-        public void verResumenRapido(RepositorioClientes repoClientes, RepositorioInteracciones repoInter)
-        {
-            int totalClientes = repoClientes?.RepoClientes?.Count ?? 0;
-
-            DateTime hoy = DateTime.Now.Date;
-            var recientes = new List<Interaccion>();
-            var proximas = new List<Reunion>();
-
-            if (repoInter?.RepoInteracciones != null)
-            {
-                foreach (var i in repoInter.RepoInteracciones) // <- usar repoInter acá
-                {
-                    if (i == null || string.IsNullOrWhiteSpace(i.fecha)) continue;
-                    if (!DateTime.TryParseExact(i.fecha, "dd-MM-yy", CultureInfo.InvariantCulture,
-                                                DateTimeStyles.None, out var f))
-                        continue;
-
-                    var fecha = f.Date;
-                    var diasDesde = (hoy - fecha).TotalDays;
-
-                    if (diasDesde >= 0 && diasDesde <= 10)
-                        recientes.Add(i);
-
-                    if (i is Reunion r)
+                    // Si el estado es exactamente "no leido" o "pendiente"
+                    if (i.estado == "no leido" || i.estado == "pendiente")
                     {
-                        var diasHasta = (fecha - hoy).TotalDays;
-                        if (diasHasta >= 0 && diasHasta <= 10)
-                            proximas.Add(r);
+                        // Agrego la interacción a la lista de resultado
+                        resultado.Add(i);
                     }
                 }
             }
 
-            Console.WriteLine("===== Resumen Rápido =====");
-            Console.WriteLine("Clientes totales: " + totalClientes);
-            Console.WriteLine("Interacciones recientes (últimos 10 días): " + recientes.Count);
-            Console.WriteLine("Reuniones próximas (próximos 10 días): " + proximas.Count);
-            Console.WriteLine();
-
-            Console.WriteLine("---- Interacciones recientes ----");
-            foreach (var r in recientes)
-            {
-                Console.WriteLine(
-                    $"{r.fecha} | {r.GetType().Name} | Cliente: {r.clienteId} | Vendedor: {r.vendedorId} | Tema: {r.tema} | Estado: {r.estado}"
-                );
-            }
-
-            Console.WriteLine("---- Reuniones próximas ----");
-            foreach (var reu in proximas)
-            {
-                Console.WriteLine(
-                    $"{reu.fecha} | Lugar: {reu.Lugar} | Cliente: {reu.clienteId} | Vendedor: {reu.vendedorId} | Tema: {reu.tema}"
-                );
-            }
-
-            Console.WriteLine("============================");
+            // Devuelvo todas las interacciones que cumplen la condición
+            return resultado;
         }
+        
+        
+        public void verTotalRango(string fechaInicial, string fechaFinal, RepositorioInteracciones repo)
+{
+    // Si el repositorio está vacío o no existe, aviso y salgo
+    if (repo == null || repo.RepoInteracciones == null)
+    {
+        Console.WriteLine("No hay interacciones cargadas.");
+        return;
+    }
 
-        // --------------------------------------------------------------------
-        // Comentarios
-        // --------------------------------------------------------------------
+    // Separo la fecha inicial "dd-MM-yy" en día, mes y año
+    int dDesde = (fechaInicial[0] - '0') * 10 + (fechaInicial[1] - '0');
+    int mDesde = (fechaInicial[3] - '0') * 10 + (fechaInicial[4] - '0');
+    int aDesde = (fechaInicial[6] - '0') * 10 + (fechaInicial[7] - '0');
+
+    // Separo la fecha final "dd-MM-yy" en día, mes y año
+    int dHasta = (fechaFinal[0] - '0') * 10 + (fechaFinal[1] - '0');
+    int mHasta = (fechaFinal[3] - '0') * 10 + (fechaFinal[4] - '0');
+    int aHasta = (fechaFinal[6] - '0') * 10 + (fechaFinal[7] - '0');
+
+    Console.WriteLine("--------------------------------------------------");
+    Console.WriteLine("Interacciones entre " + fechaInicial + " y " + fechaFinal + ":");
+
+    // Recorro todas las interacciones del repositorio
+    for (int x = 0; x < repo.RepoInteracciones.Count; x++)
+    {
+        Interaccion i = repo.RepoInteracciones[x];
+        if (i == null) continue;             // Si no hay interacción, salto
+        if (i.fecha == null || i.fecha.Length < 8) continue; // Si la fecha es inválida, salto
+
+        // Separo la fecha de la interacción también en día, mes y año
+        string f = i.fecha;
+        int d = (f[0] - '0') * 10 + (f[1] - '0');
+        int m = (f[3] - '0') * 10 + (f[4] - '0');
+        int a = (f[6] - '0') * 10 + (f[7] - '0');
+
+        // Variable para decidir si está dentro del rango
+        bool dentro = false;
+
+        // Comparación manual: año → mes → día
+        if (a > aDesde && a < aHasta)
+            dentro = true;
+        else if (a == aDesde && a == aHasta)
+        {
+            // Si es el mismo año, verifico los meses y días
+            if (m > mDesde && m < mHasta) dentro = true;
+            else if (m == mDesde && m == mHasta && d >= dDesde && d <= dHasta) dentro = true;
+            else if (m == mDesde && d >= dDesde) dentro = true;
+            else if (m == mHasta && d <= dHasta) dentro = true;
+        }
+        else if (a == aDesde && (m > mDesde || (m == mDesde && d >= dDesde)))
+            dentro = true;
+        else if (a == aHasta && (m < mHasta || (m == mHasta && d <= dHasta)))
+            dentro = true;
+
+        // Si la fecha está dentro del rango, la muestro
+        if (dentro)
+        {
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("ID: " + i.id);
+            Console.WriteLine("Fecha: " + i.fecha);
+            Console.WriteLine("Tipo: " + i.GetType().Name);
+            Console.WriteLine("Cliente: " + i.clienteId);
+            Console.WriteLine("Vendedor: " + i.vendedorId);
+            Console.WriteLine("Tema: " + i.tema);
+            Console.WriteLine("Estado: " + i.estado);
+
+            // Según el tipo de interacción, muestro más información
+            if (i is Llamada)
+            {
+                Llamada llam = (Llamada)i;
+                Console.WriteLine("Duración (min): " + llam.DuracionMin);
+            }
+            else if (i is Reunion)
+            {
+                Reunion reu = (Reunion)i;
+                Console.WriteLine("Lugar: " + reu.Lugar);
+            }
+            else if (i is Mensaje)
+            {
+                Mensaje msg = (Mensaje)i;
+                Console.WriteLine("Canal: " + msg.Canal);
+                Console.WriteLine("Contenido: " + msg.Contenido);
+            }
+            else if (i is CorreoElectronico)
+            {
+                CorreoElectronico mail = (CorreoElectronico)i;
+                Console.WriteLine("Dirección: " + mail.Direccion);
+                Console.WriteLine("Asunto: " + mail.Asunto);
+            }
+        }
+    }
+}
+        
+        public void verResumenRapido(RepositorioClientes repoClientes, RepositorioInteracciones repoInter)
+{
+    // Contador total de clientes (si el repo está vacío, 0)
+    int totalClientes = 0;
+    if (repoClientes != null && repoClientes.RepoClientes != null)
+    {
+        totalClientes = repoClientes.RepoClientes.Count;
+    }
+
+    // Obtengo la fecha de hoy con formato "dd-MM-yy"
+    string hoyStr = System.DateTime.Now.ToString("dd-MM-yy");
+    int dHoy = (hoyStr[0] - '0') * 10 + (hoyStr[1] - '0');
+    int mHoy = (hoyStr[3] - '0') * 10 + (hoyStr[4] - '0');
+    int aHoy = (hoyStr[6] - '0') * 10 + (hoyStr[7] - '0');
+
+    // Listas para guardar interacciones recientes y reuniones próximas
+    List<Interaccion> recientes = new List<Interaccion>();
+    List<Reunion> proximas = new List<Reunion>();
+
+    // Si el repositorio de interacciones existe
+    if (repoInter != null && repoInter.RepoInteracciones != null)
+    {
+        // Recorro todas las interacciones del repositorio
+        for (int i = 0; i < repoInter.RepoInteracciones.Count; i++)
+        {
+            Interaccion inter = repoInter.RepoInteracciones[i];
+
+            // Validaciones básicas
+            if (inter == null) continue;
+            if (inter.fecha == null || inter.fecha.Length < 8) continue;
+
+            // Separo la fecha de la interacción
+            string f = inter.fecha;
+            int d = (f[0] - '0') * 10 + (f[1] - '0');
+            int m = (f[3] - '0') * 10 + (f[4] - '0');
+            int a = (f[6] - '0') * 10 + (f[7] - '0');
+
+            // Variable para medir la diferencia en días (calculada a mano)
+            int diferenciaDias = 0;
+            bool mismaFecha = (a == aHoy && m == mHoy && d == dHoy);
+
+            // Calculo manualmente cuántos días pasaron desde la interacción hasta hoy
+            if (a == aHoy && m == mHoy)
+            {
+                // Mismo mes y año → diferencia directa
+                diferenciaDias = dHoy - d;
+            }
+            else if (a == aHoy && mHoy - m == 1)
+            {
+                // Mes anterior del mismo año → sumo los días restantes del mes anterior + días actuales
+                int diasMesAnterior = 30; // sin métodos, asumimos 30 días
+                diferenciaDias = (diasMesAnterior - d) + dHoy;
+            }
+            else if (a == aHoy - 1 && m == 12 && mHoy == 1)
+            {
+                // Caso especial: diciembre del año anterior → enero actual
+                int diasDiciembre = 31;
+                diferenciaDias = (diasDiciembre - d) + dHoy;
+            }
+            else
+            {
+                // Si está más atrás que eso, lo consideramos viejo
+                diferenciaDias = 999;
+            }
+
+            // Si la interacción fue dentro de los últimos 10 días, la guardo como reciente
+            if (diferenciaDias >= 0 && diferenciaDias <= 10)
+            {
+                recientes.Add(inter);
+            }
+
+            // Si es una reunión, verifico si es próxima (fecha posterior dentro de 10 días)
+            if (inter is Reunion)
+            {
+                Reunion reu = (Reunion)inter;
+                int diferenciaFutura = 0;
+
+                if (a == aHoy && m == mHoy)
+                {
+                    diferenciaFutura = d - dHoy;
+                }
+                else if (a == aHoy && m - mHoy == 1)
+                {
+                    int diasActual = 30; // asumimos 30 días en el mes actual
+                    diferenciaFutura = (diasActual - dHoy) + d;
+                }
+                else if (a == aHoy + 1 && mHoy == 12 && m == 1)
+                {
+                    int diasDiciembre = 31;
+                    diferenciaFutura = (diasDiciembre - dHoy) + d;
+                }
+                else
+                {
+                    diferenciaFutura = 999;
+                }
+
+                if (diferenciaFutura >= 0 && diferenciaFutura <= 10)
+                {
+                    proximas.Add(reu);
+                }
+            }
+        }
+    }
+
+    // Muestro el resumen final por consola
+    Console.WriteLine("===== Resumen Rápido =====");
+    Console.WriteLine("Clientes totales: " + totalClientes);
+    Console.WriteLine("Interacciones recientes (últimos 10 días): " + recientes.Count);
+    Console.WriteLine("Reuniones próximas (próximos 10 días): " + proximas.Count);
+    Console.WriteLine();
+
+    Console.WriteLine("---- Interacciones recientes ----");
+    for (int i = 0; i < recientes.Count; i++)
+    {
+        Interaccion r = recientes[i];
+        Console.WriteLine(r.fecha + " | " + r.GetType().Name +
+                          " | Cliente: " + r.clienteId +
+                          " | Vendedor: " + r.vendedorId +
+                          " | Tema: " + r.tema +
+                          " | Estado: " + r.estado);
+    }
+
+    Console.WriteLine("---- Reuniones próximas ----");
+    for (int i = 0; i < proximas.Count; i++)
+    {
+        Reunion reu = proximas[i];
+        Console.WriteLine(reu.fecha + " | Lugar: " + reu.Lugar +
+                          " | Cliente: " + reu.clienteId +
+                          " | Vendedor: " + reu.vendedorId +
+                          " | Tema: " + reu.tema);
+    }
+
+    Console.WriteLine("============================");
+}
+
+        
         public void agregarComentario(string idInteraccion, string texto, RepositorioInteracciones repo)
         {
-            if (repo?.RepoInteracciones == null)
-            {
-                Console.WriteLine("Repositorio vacío.");
-                return;
-            }
+            // Construyo la fecha actual a mano (dd-MM-yy)
+            int dia = DateTime.Now.Day;
+            int mes = DateTime.Now.Month;
+            int año = DateTime.Now.Year % 100;
 
-            foreach (var i in repo.RepoInteracciones)
+            string sDia = (dia < 10 ? "0" + dia : "" + dia);
+            string sMes = (mes < 10 ? "0" + mes : "" + mes);
+            string sAño = (año < 10 ? "0" + año : "" + año);
+            string fechaActual = sDia + "-" + sMes + "-" + sAño;
+
+            // Recorro todas las interacciones
+            foreach (Interaccion i in repo.RepoInteracciones)
             {
-                if (i == null) continue;
+                // Si coincide el id, agrego el comentario
                 if (i.id == idInteraccion)
                 {
-                    i.comentarios ??= new List<Comentario>();
-                    string fechaActual = DateTime.Now.ToString("dd-MM-yy");
-                    var nuevo = new Comentario("C" + (i.comentarios.Count + 1),
-                                               texto ?? "", fechaActual, this.id, i.id, true);
+                    // Si la lista de comentarios no existe, la creo
+                    if (i.comentarios == null)
+                    {
+                        i.comentarios = new List<Comentario>();
+                    }
+
+                    // Creo el nuevo comentario
+                    string nuevoId = "C" + (i.comentarios.Count + 1);
+                    Comentario nuevo = new Comentario(nuevoId, texto, fechaActual, this.id, i.id, true);
+
+                    // Agrego a la lista
                     i.comentarios.Add(nuevo);
 
                     Console.WriteLine("Comentario agregado a la interacción " + idInteraccion);
@@ -248,57 +409,74 @@ namespace Proyecto
             Console.WriteLine("No se encontró la interacción con ID " + idInteraccion);
         }
 
-        // --------------------------------------------------------------------
-        // Etiquetas -> trabajar SOLO con cliente.etiquetasIds (Cliente NO tiene 'etiquetas')
-        // --------------------------------------------------------------------
-        public void agregarEtiquetaACliente(string idCliente, string idEtiqueta,
-                                            RepositorioClientes repoClientes, RepositorioEtiquetas repoEtiquetas)
+        
+        public void agregarEtiquetaACliente(string idCliente, string idEtiqueta, RepositorioClientes repoClientes, RepositorioEtiquetas repoEtiquetas)
         {
-            if (repoClientes?.RepoClientes == null || repoEtiquetas?.RepoEtiquetas == null)
+            // Si las listas no existen o están vacías, aviso y salgo
+            if (repoClientes == null || repoClientes.RepoClientes == null || repoEtiquetas == null || repoEtiquetas.RepoEtiquetas == null)
             {
-                Console.WriteLine("Repositorios vacíos.");
+                Console.WriteLine("Los repositorios están vacíos.");
                 return;
             }
 
-            // Buscar cliente
-            Cliente cliente = null;
-            foreach (var c in repoClientes.RepoClientes)
+            // Busco el cliente
+            Cliente clienteEncontrado = null;
+            foreach (Cliente c in repoClientes.RepoClientes)
             {
-                if (c != null && c.id == idCliente) { cliente = c; break; }
+                if (c.id == idCliente)
+                {
+                    clienteEncontrado = c;
+                }
             }
-            if (cliente == null)
+
+            if (clienteEncontrado == null)
             {
                 Console.WriteLine("No se encontró el cliente con ID " + idCliente);
                 return;
             }
 
-            // Buscar etiqueta (solo para mostrar su nombre al final)
-            Etiqueta etiqueta = null;
-            foreach (var e in repoEtiquetas.RepoEtiquetas)
+            // Busco la etiqueta
+            Etiqueta etiquetaEncontrada = null;
+            foreach (Etiqueta e in repoEtiquetas.RepoEtiquetas)
             {
-                if (e != null && e.id == idEtiqueta) { etiqueta = e; break; }
+                if (e.id == idEtiqueta)
+                {
+                    etiquetaEncontrada = e;
+                }
             }
-            if (etiqueta == null)
+
+            if (etiquetaEncontrada == null)
             {
                 Console.WriteLine("No se encontró la etiqueta con ID " + idEtiqueta);
                 return;
             }
 
-            // Asegurar lista de IDs
-            cliente.etiquetasIds ??= new List<string>();
-
-            // Evitar duplicado
-            foreach (var existingId in cliente.etiquetasIds)
+            // Si el cliente no tiene lista de etiquetas, la creo
+            if (clienteEncontrado.etiquetasIds == null)
             {
-                if (existingId == idEtiqueta)
+                clienteEncontrado.etiquetasIds = new List<string>();
+            }
+
+            // Verifico que no tenga ya la etiqueta
+            bool yaTiene = false;
+            foreach (string id in clienteEncontrado.etiquetasIds)
+            {
+                if (id == idEtiqueta)
                 {
-                    Console.WriteLine("El cliente ya tiene esta etiqueta asignada.");
-                    return;
+                    yaTiene = true;
                 }
             }
 
-            cliente.etiquetasIds.Add(idEtiqueta);
-            Console.WriteLine("Etiqueta '" + etiqueta.nombre + "' agregada al cliente " + cliente.nombre);
+            if (yaTiene)
+            {
+                Console.WriteLine("El cliente ya tiene esta etiqueta asignada.");
+                return;
+            }
+
+            // Agrego la etiqueta
+            clienteEncontrado.etiquetasIds.Add(idEtiqueta);
+            Console.WriteLine("Etiqueta '" + etiquetaEncontrada.nombre + "' agregada al cliente " + clienteEncontrado.nombre);
         }
+
     }
 }
