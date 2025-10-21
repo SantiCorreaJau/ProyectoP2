@@ -2,11 +2,11 @@
 
 public class RepositorioClientes
 {
-    public List<Cliente> RepoClientes { get; set; }
+    public List<Cliente> RepoClientes { get; set; }   // coleccion en memoria de clientes
 
     public RepositorioClientes()
     {
-        RepoClientes = new List<Cliente>();
+        RepoClientes = new List<Cliente>();           // arrancamos vacio
     }
 
     public void crearCliente(
@@ -20,9 +20,13 @@ public class RepositorioClientes
         string creadoEn,
         string vendedorId)
     {
+        // arma el objeto cliente con los datos que llegan
         Cliente nuevo = new Cliente(id, nombre, apellido, telefono, email, genero, fechaNacimiento, creadoEn);
+
+        
         nuevo.id = vendedorId;
-        RepoClientes.Add(nuevo);
+
+        RepoClientes.Add(nuevo);                      // lo metemos al repo
     }
 
     public void modificarCliente(
@@ -34,15 +38,18 @@ public class RepositorioClientes
         string genero = null,
         string fechaNacimiento = null)
     {
+        // busca el cliente y, si existe, actualiza solo los campos no nulos
         Cliente c = buscarCliente(idCliente);
         if (c != null)
         {
             c.Actualizar(nombre, apellido, telefono, email, genero, fechaNacimiento);
         }
+        // si no existe, no hace nada (comportamiento silencioso)
     }
 
     public void eliminarCliente(string idCliente)
     {
+        // busca y, si lo encuentra, lo saca de la lista
         Cliente c = buscarCliente(idCliente);
         if (c != null)
         {
@@ -52,27 +59,29 @@ public class RepositorioClientes
 
     public Cliente buscarCliente(string criterio)
     {
+        // busca por coincidencia exacta en id, nombre, apellido o email (la primera que matchee)
         foreach (Cliente c in RepoClientes)
         {
             if (c.id == criterio || c.nombre == criterio || c.apellido == criterio || c.email == criterio)
             {
-                return c;
+                return c;                              // devuelve al primer match y corta
             }
         }
-        return null;
+        return null;                                   // si no hay coincidencias, null
     }
 
     public List<Cliente> listarClientes()
     {
-        return RepoClientes;
+        return RepoClientes;                           // devuelve la lista “viva” (se puede modificar desde afuera)
     }
 
     public void reasignarCliente(string idCliente, string idVendedorNuevo)
     {
+        //aca reasignamos el cliente a otro vendedor
         Cliente c = buscarCliente(idCliente);
         if (c != null)
         {
-            c.id = idVendedorNuevo;
+            c.id = idVendedorNuevo;                    
         }
     }
 }
