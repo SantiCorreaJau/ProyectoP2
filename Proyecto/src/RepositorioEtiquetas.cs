@@ -1,7 +1,8 @@
-﻿namespace Proyecto;
+﻿using DefaultNamespace;
 
-public class RepositorioEtiquetas
-{
+namespace Proyecto;
+
+
     public class RepositorioEtiquetas
     {
         public List<Etiqueta> RepoEtiquetas { get; set; }
@@ -18,7 +19,7 @@ public class RepositorioEtiquetas
                 if (e.id == id)
                 {
                     Console.WriteLine("El ID de etiqueta ya está en uso.");
-                    return null;
+                    //return null;
                 }
             }
             RepoEtiquetas.Add(new Etiqueta(id, nombre, descripcion));
@@ -58,5 +59,4 @@ public class RepositorioEtiquetas
             }
         }
     }
-
-}
+    

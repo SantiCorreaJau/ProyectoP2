@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {}
+    "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\test\\Library.Tests\\Library\\Library.csproj": {}
   },
   "projects": {
-    "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj": {
+    "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\test\\Library.Tests\\Library\\Library.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
-        "projectName": "Proyecto",
-        "projectPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\Proyecto.csproj",
+        "projectUniqueName": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\test\\Library.Tests\\Library\\Library.csproj",
+        "projectName": "Library",
+        "projectPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\test\\Library.Tests\\Library\\Library.csproj",
         "packagesPath": "C:\\Users\\feder\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\obj\\",
+        "outputPath": "C:\\Users\\feder\\Desktop\\Programacion 2\\ProyectoP2\\Proyecto\\test\\Library.Tests\\Library\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\feder\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {

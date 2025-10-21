@@ -13,7 +13,7 @@ public abstract class Interaccion
     public Interaccion(string id, string fechaHora, string tema, string estado, string clienteId, string vendedorId, List<Comentario> comentarios)
     {
         this.id = id;
-        this.fecha = fechaH;
+        this.fecha = fechaHora;
         this.tema = tema;
        // this.direccion = direccion;
         this.estado = estado;
@@ -41,6 +41,6 @@ public abstract class Interaccion
 
     public bool EsReciente(string fechaLimite)
     {
-        return string.Compare(fechaHora, fechaLimite) > 0;
+        return string.Compare(this.fecha, fechaLimite) > 0;
     }
 }
