@@ -23,8 +23,7 @@ public class RepositorioClientes
         // arma el objeto cliente con los datos que llegan
         Cliente nuevo = new Cliente(id, nombre, apellido, telefono, email, genero, fechaNacimiento, creadoEn);
 
-        // ojo: aca se pisa el id del cliente con el id del vendedor (!)
-        // suena a bug de reasignacion: si querias guardar el vendedor, deberia ser otro campo (p.ej. nuevo.vendedorId)
+        
         nuevo.id = vendedorId;
 
         RepoClientes.Add(nuevo);                      // lo metemos al repo
@@ -74,7 +73,6 @@ public class RepositorioClientes
     public List<Cliente> listarClientes()
     {
         return RepoClientes;                           // devuelve la lista “viva” (se puede modificar desde afuera)
-        // si no queres exponer la lista interna, devolver una copia seria mejor: new List<Cliente>(RepoClientes)
     }
 
     public void reasignarCliente(string idCliente, string idVendedorNuevo)

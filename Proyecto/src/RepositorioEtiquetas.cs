@@ -7,7 +7,7 @@ public class RepositorioEtiquetas       // clase re simple, hace de "BD" en memo
 {
     public List<Etiqueta> RepoEtiquetas { get; set; }  // aca guardamos todas las etiquetas, una lista y fue
 
-    public RepositorioEtiquetas()       // ctor, se llama cuando haces new RepositorioEtiquetas()
+    public RepositorioEtiquetas()       // sector, se llama cuando haces new RepositorioEtiquetas()
     {
         RepoEtiquetas = new List<Etiqueta>();          // arrancamos con la lista vacia, obvio
     }
@@ -37,7 +37,7 @@ public class RepositorioEtiquetas       // clase re simple, hace de "BD" en memo
     public List<Etiqueta> ListarEtiquetas()            // te devuelve todas las etiquetas
     {
         return RepoEtiquetas;                          // devolvemos la lista posta (se puede modificar desde afuera eh)
-        // si queres ser prolijo: return new List<Etiqueta>(RepoEtiquetas); asi no te rompen la lista interna
+        
     }
 
     public void EliminarEtiqueta(string id)            // borra una etiqueta por id si existe
