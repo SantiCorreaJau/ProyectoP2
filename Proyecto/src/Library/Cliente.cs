@@ -11,7 +11,6 @@ public class Cliente
    public string fechaNacimiento { get; set; }
    public bool activo { get; set; }
    public string creadoEn { get; set; }
-   
    public List<string> etiquetasIds { get; set; }
 
 
@@ -27,8 +26,7 @@ public class Cliente
       this.fechaNacimiento = fechaNac;
       this.activo = true;
       this.creadoEn = creado;
-      etiquetasIds = new List<string>();
-
+      
    }
    
    public void Actualizar(

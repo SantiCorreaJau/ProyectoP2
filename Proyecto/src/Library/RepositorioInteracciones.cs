@@ -23,7 +23,7 @@ public class RepositorioInteracciones
             if (tipo == "llamada" && i is Llamada) resultado.Add(i);
             else if (tipo == "reunion" && i is Reunion) resultado.Add(i);
             else if (tipo == "mensaje" && i is Mensaje) resultado.Add(i);
-            else if (tipo == "correo" && i is Correo) resultado.Add(i);
+            else if (tipo == "correo" && i is CorreoElectronico) resultado.Add(i);
         }
 
         return resultado;
@@ -88,7 +88,7 @@ public List<Interaccion> FiltrarRangoFecha(string desde, string hasta, List<Inte
 
     foreach (Interaccion i in lista)
     {
-        string f = i.fechaHora;
+        string f = i.fecha;
 
         int d = (f[0] - '0') * 10 + (f[1] - '0');
         int m = (f[3] - '0') * 10 + (f[4] - '0');
@@ -123,19 +123,19 @@ public List<Interaccion> FiltrarRecientes(List<Interaccion> lista)
     DateTime hoy = DateTime.Now;
     int diaHoy = hoy.Day;
     int mesHoy = hoy.Month;
-    int añoHoy = hoy.Year % 100;
+    int a単oHoy = hoy.Year % 100;
 
     foreach (Interaccion i in lista)
     {
-        string f = i.fechaHora;
+        string f = i.fecha;
 
         int dia = (f[0] - '0') * 10 + (f[1] - '0');
         int mes = (f[3] - '0') * 10 + (f[4] - '0');
-        int año = (f[6] - '0') * 10 + (f[7] - '0');
+        int a単o = (f[6] - '0') * 10 + (f[7] - '0');
 
         bool esReciente = false;
 
-        if (año == añoHoy && mes == mesHoy)
+        if (a単o == a単oHoy && mes == mesHoy)
         {
             if (diaHoy - dia <= 10 && diaHoy - dia >= 0)
             {

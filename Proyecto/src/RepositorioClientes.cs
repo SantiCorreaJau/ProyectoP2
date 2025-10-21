@@ -21,7 +21,7 @@ public class RepositorioClientes
         string vendedorId)
     {
         Cliente nuevo = new Cliente(id, nombre, apellido, telefono, email, genero, fechaNacimiento, creadoEn);
-        nuevo.vendedorId = vendedorId;
+        nuevo.id = vendedorId;
         RepoClientes.Add(nuevo);
     }
 
@@ -72,7 +72,7 @@ public class RepositorioClientes
         Cliente c = buscarCliente(idCliente);
         if (c != null)
         {
-            c.vendedorId = idVendedorNuevo;
+            c.id = idVendedorNuevo;
         }
     }
 }
