@@ -10,9 +10,4 @@ public class Llamada : Interaccion
     {
         DuracionMin = duracionMin;
     }
-
-    public override void Registrar(RepositorioInteracciones repositorio)
-    {
-        repositorio.Agregar(this);
-    }
 }

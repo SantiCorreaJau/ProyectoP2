@@ -27,7 +27,7 @@ namespace TestsProyecto
             var repo = new RepositorioInteracciones();
             repo.Agregar(inter);
 
-            var noLeidos = vendedor.verNoLeidos(repo.RepoInteracciones);
+            var noLeidos = vendedor.verNoLeidos(repo);
             Assert.AreEqual(1, noLeidos.Count);
 
             vendedor.agregarComentario("i1", "Buen trabajo", repo);
@@ -64,11 +64,12 @@ namespace TestsProyecto
         [Test]
         public void VentaYItem_DeberianCrearseCorrectamente()
         {
-            var v = new Venta("v1", "20-10-25", 200.5f);
-            var item = new VentaItem("vi1", 2, 100.25f, 200.5f);
+            var v = new Venta("v1", "20-10-25", 15);
+            var item = new VentaItem("vi1", 2, 25);
 
             Assert.AreEqual(2, item.cantidad);
-            Assert.AreEqual(200.5f, v.total);
+            Assert.AreEqual(50, item.subtotal);
+            Assert.AreEqual(15, v.total);
         }
     }
 }

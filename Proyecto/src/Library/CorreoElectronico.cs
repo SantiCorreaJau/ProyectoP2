@@ -14,10 +14,4 @@ public class CorreoElectronico : Interaccion
         Asunto = asunto;
         Cuerpo = uncuerpo;
     }
-
-    public override void Registrar(RepositorioInteracciones repositorio)
-    {
-        
-        repositorio.Agregar(this);
-    }
 }

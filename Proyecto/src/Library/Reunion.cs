@@ -11,10 +11,4 @@ public class Reunion : Interaccion
     {
         Lugar = lugar;
     }
-
-    public override void Registrar(RepositorioInteracciones repositorio)
-    {
-        
-        repositorio.Agregar(this);
-    }
 }

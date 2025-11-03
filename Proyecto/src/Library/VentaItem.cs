@@ -7,11 +7,11 @@ public class VentaItem
     public float precioUnitario { get; set; }
     public float subtotal { get; set; } //TOTAL*CANTIDAD
 
-    public VentaItem(string unId, int unaCantidad, float unPrecioUnitario, float unSubtotal)
+    public VentaItem(string unId, int unaCantidad, float unPrecioUnitario)
     {
         this.id = unId;
         this.cantidad = unaCantidad;
         this.precioUnitario = unPrecioUnitario;
-        this.subtotal = unSubtotal;
+        this.subtotal = cantidad*precioUnitario;
     }
 }

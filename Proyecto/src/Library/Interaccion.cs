@@ -23,7 +23,11 @@ public abstract class Interaccion       // Creamos una clase abstracta porque nu
     }
 
 
-    public abstract void Registrar(RepositorioInteracciones repositorio);
+    public void Registrar(RepositorioInteracciones repositorio)
+    {
+        repositorio.Agregar(this);
+
+    }
 
     public void CambiarEstado(string nuevoEstado)
     {

@@ -32,16 +32,16 @@ namespace Proyecto
 
             foreach (var i in repo.RepoInteracciones)   // recorro el repo
             {
-                if (i != null && i.clienteId == idCliente)  //Si la interaccion NO esta vacia y coincide el id del cliente lo agrego a la lista
+                if (i.clienteId == idCliente)  //Si la interaccion NO esta vacia y coincide el id del cliente lo agrego a la lista
                     resultado.Add(i);
             }
             return resultado;
         }
         
         public List<string> verClientesSinContactoDesde(string fecha, RepositorioInteracciones repo) // Devuelve una lista de clientes los cuales
-        // no tengo contacto desde una fecha formato dd-mm-aa
-{
-    List<string> clientesSinContacto = new List<string>();      // Creo la lista que despues voy a devolver
+                                                                                            // no tengo contacto desde una fecha formato dd-mm-aa
+        {
+            List<string> clientesSinContacto = new List<string>();      // Creo la lista que despues voy a devolver
     if (repo == null || repo.RepoInteracciones == null) return clientesSinContacto;     // Me fijo si el repo no esta vacio
 
     // Paso la fecha del formato dd-mm-aa a variables con enteros
@@ -80,8 +80,6 @@ namespace Proyecto
         }
     }
 
-
-
     // Verifica quiénes no tienen contacto desde la fecha límite
     foreach (var par in ultimoPorCliente)
     {
@@ -104,39 +102,30 @@ namespace Proyecto
     }
 
     return clientesSinContacto;
+    
 }
+
 
         
         
-        public List<Interaccion> verNoLeidos(List<Interaccion> listaInteracciones)
+        public List<Interaccion> verNoLeidos(RepositorioInteracciones repo)
         {
             // Creo una lista vacía donde voy a guardar las interacciones que están sin leer o pendientes
             List<Interaccion> resultado = new List<Interaccion>();
 
             // Si la lista que me pasan es nula, devuelvo la lista vacía directamente
-            if (listaInteracciones == null)
+            if (repo == null)
             {
                 return resultado;
             }
 
             // Recorro todas las interacciones de la lista
-            for (int x = 0; x < listaInteracciones.Count; x++)
+            foreach (var i in repo.RepoInteracciones)   // recorro el repo
             {
-                Interaccion i = listaInteracciones[x];
-
-                // Si la interacción existe y tiene estado
-                if (i != null && i.estado != null)
-                {
-                    // Si el estado es exactamente "no leido" o "pendiente"
-                    if (i.estado == "no leido" || i.estado == "pendiente")
-                    {
-                        // Agrego la interacción a la lista de resultado
-                        resultado.Add(i);
-                    }
-                }
+                if (i.estado.ToLower() == "pendiente") 
+                    resultado.Add(i);
             }
-
-            // Devuelvo todas las interacciones que cumplen la condición
+            
             return resultado;
         }
         

@@ -14,10 +14,4 @@ public class Mensaje : Interaccion
         Contenido = unContenido;
         Canal = unCanal;
     }
-
-    public override void Registrar(RepositorioInteracciones repositorio)
-    {
-
-        repositorio.Agregar(this);
-    }
 }
