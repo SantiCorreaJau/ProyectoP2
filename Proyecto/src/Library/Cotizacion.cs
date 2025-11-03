@@ -1,17 +1,12 @@
 ﻿namespace Proyecto;
 
-public class Cotizacion
+public class Cotizacion : Interaccion
 {
-    public string Id { get; set; }
-    public string FechaEnvio { get; set; }
-    public float Importe { get; set; }
-    public string Estado { get; set; }
-
-    public Cotizacion(string id, string fechaEnvio, float importe, string estado)
+    public float importe { get; set; }
+    public Cotizacion(string id, string fecha, string tema, bool  pendiente, string clienteId, string vendedorId, 
+        List<Comentario> comentarios, float importe)
+        : base(id, fecha, tema, pendiente, clienteId, vendedorId, comentarios)
     {
-        Id = id;
-        FechaEnvio = fechaEnvio;
-        Importe = importe;
-        Estado = estado;
+        this.importe = importe;
     }
 }

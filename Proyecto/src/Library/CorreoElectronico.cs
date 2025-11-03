@@ -6,9 +6,9 @@ public class CorreoElectronico : Interaccion
     public string Asunto { get; set; }  
 
     public string Cuerpo { get; set; }
-    public CorreoElectronico(string id, string fechaHora, string tema, string estado, string clienteId, 
+    public CorreoElectronico(string id, string fechaHora, string tema, bool pendiente, string clienteId, 
         string vendedorId, List<Comentario> comentarios, string direccion, string asunto,string uncuerpo)
-        : base(id, fechaHora, tema, estado, clienteId, vendedorId, comentarios)
+        : base(id, fechaHora, tema, pendiente, clienteId, vendedorId, comentarios)
     {
         Direccion = direccion;
         Asunto = asunto;

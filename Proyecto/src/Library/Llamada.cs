@@ -4,9 +4,9 @@ public class Llamada : Interaccion
 {
     public int DuracionMin { get; set; }
 
-    public Llamada(string id, string fechaHora, string tema, string estado, string clienteId, string vendedorId, 
+    public Llamada(string id, string fecha, string tema, bool  pendiente, string clienteId, string vendedorId, 
         List<Comentario> comentarios, int duracionMin)
-        : base(id, fechaHora, tema, estado, clienteId, vendedorId, comentarios)
+        : base(id, fecha, tema, pendiente, clienteId, vendedorId, comentarios)
     {
         DuracionMin = duracionMin;
     }

@@ -64,7 +64,7 @@ public List<Interaccion> FiltrarPendiente(List<Interaccion> lista)  // Filtro po
 
     foreach (Interaccion i in lista)
     {
-        if (i.estado == "pendiente")
+        if (i.pendiente == true)
         {
             resultado.Add(i);
         }

@@ -122,7 +122,7 @@ namespace Proyecto
             // Recorro todas las interacciones de la lista
             foreach (var i in repo.RepoInteracciones)   // recorro el repo
             {
-                if (i.estado.ToLower() == "pendiente") 
+                if (i.pendiente == true) 
                     resultado.Add(i);
             }
             
@@ -194,7 +194,7 @@ namespace Proyecto
             Console.WriteLine("Cliente: " + i.clienteId);
             Console.WriteLine("Vendedor: " + i.vendedorId);
             Console.WriteLine("Tema: " + i.tema);
-            Console.WriteLine("Estado: " + i.estado);
+            Console.WriteLine("Pendiente: " + i.pendiente);
 
             // Según el tipo de interacción, muestro más información
             if (i is Llamada)
@@ -342,7 +342,7 @@ namespace Proyecto
                           " | Cliente: " + r.clienteId +
                           " | Vendedor: " + r.vendedorId +
                           " | Tema: " + r.tema +
-                          " | Estado: " + r.estado);
+                          " | Pendiente: " + r.pendiente);
     }
 
     Console.WriteLine("---- Reuniones próximas ----");

@@ -23,7 +23,7 @@ namespace TestsProyecto
         public void Vendedor_VerNoLeidosYAgregarComentario()
         {
             var vendedor = new Vendedor("v1", "Juan", "P", "099", "v@mail");
-            var inter = new Mensaje("i1", "20-10-25", "Tema", "no leido", "c1", "v1", new List<Comentario>(), "recibido", "txt", "sms");
+            var inter = new Mensaje("i1", "20-10-25", "Tema", true, "c1", "v1", new List<Comentario>(), "recibido", "txt", "sms");
             var repo = new RepositorioInteracciones();
             repo.Agregar(inter);
 
@@ -55,10 +55,10 @@ namespace TestsProyecto
         public void ProductoYCotizacion_DeberianCrearseCorrectamente()
         {
             var p = new Producto("p1", "Mouse", "sku1", "Inalambrico");
-            var c = new Cotizacion("c1", "20-10-25", 100.5f, "activa");
+            var c = new Cotizacion("a100", "2-11-25", "Venta de Almohadas", true, "c4", "v4", new List<Comentario>(), 500 );
 
             Assert.AreEqual("Mouse", p.Nombre);
-            Assert.AreEqual(100.5f, c.Importe);
+            Assert.AreEqual(500, c.importe);
         }
 
         [Test]

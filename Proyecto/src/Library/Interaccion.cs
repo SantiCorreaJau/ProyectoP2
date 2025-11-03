@@ -6,17 +6,18 @@ public abstract class Interaccion       // Creamos una clase abstracta porque nu
     public string id { get; set; }
     public string fecha { get; set; }
     public string tema { get; set; }
-    public string estado { get; set; }
+    
+    public bool pendiente { get; set; }
     public string clienteId { get; set; }
     public string vendedorId { get; set; }
     public List<Comentario> comentarios { get; set; }
 
-    public Interaccion(string id, string fechaHora, string tema, string estado, string clienteId, string vendedorId, List<Comentario> comentarios)
+    public Interaccion(string id, string fecha, string tema, bool pendiente, string clienteId, string vendedorId, List<Comentario> comentarios)
     {
         this.id = id;
-        this.fecha = fechaHora;
+        this.fecha = fecha;
         this.tema = tema;
-        this.estado = estado;
+        this.pendiente = pendiente;
         this.clienteId = clienteId;
         this.vendedorId = vendedorId;
         this.comentarios = comentarios;
@@ -29,14 +30,14 @@ public abstract class Interaccion       // Creamos una clase abstracta porque nu
 
     }
 
-    public void CambiarEstado(string nuevoEstado)
+    public void CambiarEstado(bool nuevoEstado)
     {
-        estado = nuevoEstado;
+        pendiente = nuevoEstado;
     }
 
     public bool EsPendiente()
     {
-        if (this.estado == "pendiente")
+        if (this.pendiente == true)
         {
             return true;
         }
